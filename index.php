@@ -1,0 +1,1 @@
+/home/u388559904/domains/stylingresume.com/public_html/backend/public/index.php
