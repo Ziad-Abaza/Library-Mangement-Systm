@@ -1,66 +1,170 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Library Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project is a Library Management System built using React for the frontend and a backend that handles data processing. The frontend is a React-based application, and the backend is implemented in PHP. This guide will take you through the steps to run the project locally, build it, and deploy it to the server.
 
-## About Laravel
+## Steps to Download and Run the Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. Clone the Repository
+First, clone the repository to your local machine:
+```bash
+git clone https://github.com/Ziad-Abaza/Library-Mangement-Systm.git
+cd Library-Mangement-Systm
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. Set up the Backend
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The backend is a PHP project. Follow these steps to set it up:
 
-## Learning Laravel
+1. **Install Dependencies:**
+   Make sure you have Composer installed. Run the following command in the backend directory:
+   ```bash
+   composer install
+   ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Configure Environment:**
+   Copy the `.env.example` file to `.env` and update the configuration settings, especially for the database:
+   ```bash
+   cp .env.example .env
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Generate the Application Key:**
+   Run the following command to generate the application key:
+   ```bash
+   php artisan key:generate
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Run Migrations:**
+   To set up the database, run the migrations:
+   ```bash
+   php artisan migrate
+   ```
 
-## Laravel Sponsors
+5. **Run the Backend Server:**
+   You can now run the backend server:
+   ```bash
+   php artisan serve
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 3. Set up the Frontend (React)
 
-### Premium Partners
+The frontend is a React application. To run it, follow these steps:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1. **Install Dependencies:**
+   Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-## Contributing
+   Install the dependencies using npm or yarn:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Configure Environment:**
+   Inside the `frontend` directory, locate the `.env.production` file and update the backend URL:
+   ```env
+   VITE_BACKEND_URL=https://backend.stylingresume.com
+   ```
 
-## Code of Conduct
+3. **Run the Development Server:**
+   To start the development server, run:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+   This will launch the React app on `http://localhost:3000`.
 
-## Security Vulnerabilities
+### 4. Build the Project for Production
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Once you are satisfied with the development environment, you can build the project for production.
 
-## License
+1. **Build the React App:**
+   Run the following command inside the `frontend` directory to create the production build:
+   ```bash
+   npm run build
+   # or
+   yarn build
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   This will create a `dist/` folder with the built files.
+
+2. **Transfer the Files to the Server:**
+   - Move the contents of the `dist/` directory to your main server's public directory.
+   - Move the backend files to the subdomain directory (e.g., `backend.stylingresume.com`).
+
+### 5. Update `.htaccess` for Frontend
+
+For proper routing in the React app, you need to update the `.htaccess` file in the frontend directory. Here's the configuration:
+
+```apache
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Disable MultiViews to prevent issues with extensions
+    Options -MultiViews
+
+    # Redirect Trailing Slashes If Not A Folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Allow Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Send all requests to index.html if not an existing file or directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.html [L]
+</IfModule>
+```
+
+### 6. Fix CSRF Issues After Deployment
+
+If you encounter a CSRF issue after deploying the project to the hosting server, you need to adjust the following settings:
+
+- **In `.env`:**
+
+   Update the environment configuration:
+   ```env
+   APP_ENV=prod
+   APP_URL=https://backend.stylingresume.com
+
+   SESSION_DOMAIN=.stylingresume.com
+   SANCTUM_STATEFUL_DOMAINS=stylingresume.com
+   ```
+
+- **In `config/cors.php`:**
+
+   Update the allowed origins:
+   ```php
+   'paths' => ['*'],
+   'allowed_methods' => ['*'],
+   'allowed_origins' => ['https://stylingresume.com'],
+   'allowed_origins_patterns' => [],
+   'allowed_headers' => ['*'],
+   'exposed_headers' => [],
+   'max_age' => 0,
+   'supports_credentials' => true,
+   ```
+
+- **In `config/session.php`:**
+
+   Update the session cookie configuration:
+   ```php
+   'secure' => env('SESSION_SECURE_COOKIE', true),
+   ```
+
+### 7. Create a Symlink for `index.php`
+
+Instead of copying `index.php` from the `public` directory, you can create a symlink by running the following command:
+```bash
+ln -s /home/u388559904/domains/stylingresume.com/public_html/backend/public/index.php /home/u388559904/domains/stylingresume.com/public_html/backend/index.php
+```
+
+This command will ensure that the `index.php` is properly linked in the server's public directory.
+
