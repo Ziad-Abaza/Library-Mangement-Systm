@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 // Middleware to authenticate Sanctum requests
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        $user = $request->user()->load('roles');
+        return $user;
     });
 });
 
