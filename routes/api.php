@@ -69,6 +69,13 @@ Route::get('/downloads', [DownloadController::class, 'index']);
 */
 Route::apiResource('roles', RolesController::class);
 
+Route::get('/permissions', function (Request $request) {
+    $permissions = Permission::all();
+    return response()->json([
+        'data' => $permissions,
+    ]);
+});
+
 /*
 |------------------------------------------------------------------
 | User Routes
