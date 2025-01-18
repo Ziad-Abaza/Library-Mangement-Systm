@@ -10,12 +10,14 @@ use App\Http\Controllers\API\DownloadController;
 use App\Http\Controllers\API\HomePageController;
 use App\Http\Controllers\API\RolesController;
 use App\Http\Controllers\API\UserController;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Middleware to authenticate Sanctum requests
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    $user = $request->user()->load('roles');
+        return $user;
 });
 
 /*
@@ -65,6 +67,13 @@ Route::get('/downloads', [DownloadController::class, 'index']);
 |------------------------------------------------------------------
 */
 Route::apiResource('roles', RolesController::class);
+
+Route::get('/permissions', function (Request $request) {
+    $permissions = Permission::all();
+    return response()->json([
+        'data' => $permissions,
+    ]);
+});
 
 /*
 |------------------------------------------------------------------
