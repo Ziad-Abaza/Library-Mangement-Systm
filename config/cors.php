@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://stylingresume.com'],
+    'allowed_origins' => ['https://alandlyisa-libarary.stylingresume.com'],
 
     'allowed_origins_patterns' => [],
 
