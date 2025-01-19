@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://alandlyisa-libarary.stylingresume.com'],
+    'allowed_origins' => ['https://alandlyisa-libarary.stylingresume.com', 'https://lib-git-master-ahmed-abdallah-elshobakys-projects.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
