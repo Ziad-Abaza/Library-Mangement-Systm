@@ -1,27 +1,45 @@
 <?php
 
-use App\Http\Controllers\API\AuthorController;
-use App\Http\Controllers\API\BookController;
-use App\Http\Controllers\API\BookSeriesController;
-use App\Http\Controllers\API\NotificationController;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\CommentController;
-use App\Http\Controllers\API\DownloadController;
-use App\Http\Controllers\API\HomePageController;
-use App\Http\Controllers\API\RolesController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\Api\AuthorController;
+use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\BookSeriesController;
+use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\DownloadController;
+use App\Http\Controllers\Api\HomePageController;
+use App\Http\Controllers\Api\RolesController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Middleware to authenticate Sanctum requests
-// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+/*
+|------------------------------------------------------------------
+| User Authentication Routes
+|------------------------------------------------------------------
+*/
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    $user = $request->user()->load('roles');
-        return $user;
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/user', function (Request $request) {
+        $user = $request->user();
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'created_at' => $user->created_at,
+                'is_active' => $user->is_active,
+                'role' => $user->roles->select( 'id', 'name', 'role_level')->first(),
+            ],
+        ]);
+    });
 });
 
 /*
@@ -81,7 +99,7 @@ Route::get('/permissions', function (Request $request) {
 
 /*
 |------------------------------------------------------------------
-| User Routes
+| User Management Routes
 |------------------------------------------------------------------
 */
 Route::prefix('users')->group(function () {
@@ -96,14 +114,14 @@ Route::prefix('users')->group(function () {
 
 /*
 |------------------------------------------------------------------
-| Category Routes
+| Category Management Routes
 |------------------------------------------------------------------
 */
 Route::apiResource('categories', CategoryController::class);
 
 /*
 |------------------------------------------------------------------
-| Category Group Routes
+| Category Group Management Routes
 |------------------------------------------------------------------
 */
 Route::prefix('category-groups')->group(function () {
@@ -121,7 +139,6 @@ Route::prefix('category-groups')->group(function () {
 */
 Route::prefix('notifications')->group(function () {
     Route::delete('/delete-all', [NotificationController::class, 'deleteAllNotifications']);
-
     Route::post('/send/all', [NotificationController::class, 'sendToAllUsers']);
     Route::post('/send/user/{id}', [NotificationController::class, 'sendToSpecificUser']);
     Route::get('/user', [NotificationController::class, 'getUserNotifications']);
@@ -130,10 +147,9 @@ Route::prefix('notifications')->group(function () {
     Route::delete('/{notificationId}', [NotificationController::class, 'deleteNotification']);
 });
 
-
 /*
 |------------------------------------------------------------------
-| Author Routes
+| Author Management Routes
 |------------------------------------------------------------------
 */
 Route::prefix('authors')->group(function () {
@@ -145,7 +161,7 @@ Route::prefix('authors')->group(function () {
 
 /*
 |------------------------------------------------------------------
-| Author Request Routes
+| Author Request Management Routes
 |------------------------------------------------------------------
 */
 Route::prefix('author-requests')->group(function () {

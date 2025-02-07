@@ -12,7 +12,8 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use APP\Notifications\GeneralNotification;
 use Illuminate\Notifications\DatabaseNotification as Notification;
 
-class User extends Authenticatable implements HasMedia{
+class User extends Authenticatable implements HasMedia
+{
     use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
@@ -30,12 +31,7 @@ class User extends Authenticatable implements HasMedia{
         'is_active',
     ];
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('images')
-            ->useDisk('public')
-            ->singleFile(); 
-    }
+
 
     public function books()
     {
@@ -127,6 +123,4 @@ class User extends Authenticatable implements HasMedia{
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
 }
